@@ -5,6 +5,7 @@ import com.zeyad.maid.lms.dto.request.SignupRequestDTO;
 import com.zeyad.maid.lms.exceptions.ResourceExistedException;
 import com.zeyad.maid.lms.exceptions.ResourceNotFoundException;
 import jakarta.ws.rs.core.Response;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -25,12 +26,11 @@ import java.util.Arrays;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class KeyCloakService {
 
-    @Autowired
-    private Keycloak keycloak;
+    private final Keycloak keycloak;
 
-    @Autowired
     private RestTemplate restTemplate;
 
     @Value("${keycloak.realm}")
