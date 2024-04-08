@@ -33,7 +33,7 @@ public class AuthController {
     @ApiResponse(responseCode = "200", description = "OK")
     public String signupUser(
             @Parameter(description = "User signup information") @Valid @RequestBody SignupRequestDTO signupRequestDTO
-    ) throws IllegalAccessException {
+    )  {
         return keyCloakService.createUser(signupRequestDTO);
     }
 
