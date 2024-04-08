@@ -12,10 +12,12 @@ import lombok.Data;
 @AllArgsConstructor
 @GroupSequence({FirstOrder.class, SecondOrder.class})
 public class SigninRequestDTO {
+
     @NotBlank(message = "Username must not be empty", groups = FirstOrder.class)
     @Size(min = 5, message = "Username must be at least 5 characters long", groups = SecondOrder.class)
     private String username;
+
     @NotBlank(message = "password must not be empty", groups = FirstOrder.class)
-    @Size(min = 5, message = "password must be at least 8 characters long", groups = SecondOrder.class)
+    @Size(min = 8, message = "password must be at least 8 characters long", groups = SecondOrder.class)
     private String password;
 }
