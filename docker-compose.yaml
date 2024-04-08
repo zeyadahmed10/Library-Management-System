@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   postgres:
     container_name: postgres
@@ -14,6 +16,7 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -40,8 +43,14 @@ services:
       KC_DB_USERNAME: zeyad
       KC_DB_URL_PORT: 5432
       KC_DB_URL_HOST: postgres
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
       KC_FILE: /opt/keycloak/import/realm-export.json
-    command: start-dev
+    command:
+        - "start-dev"
+        - "-Dkeycloak.migration.action=import"
+        - "-Dkeycloak.migration.provider=singleFile"
+        - "-Dkeycloak.migration.file=/opt/keycloak/import/realm-export.json"
     depends_on:
       - postgres
     ports:
@@ -49,10 +58,12 @@ services:
     networks:
       - postgres
     volumes:
-      - ./realm-export.json:/opt/keycloak/import/realm-export.json
+      - ./realm-export.json:/opt/keycloak/import/realm-export.json  # Corrected volume mapping
+
 networks:
   postgres:
     driver: bridge
+
 volumes:
   postgres:
   pgadmin:
