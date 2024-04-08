@@ -43,6 +43,8 @@ public class AuthController {
     )
     @PostMapping("/signin")
     @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
+    @ApiResponse(responseCode = "401", description = "Not Authorized", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
+    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class)))
     public ResponseEntity<Object> signinUser(
             @Parameter(description = "User login information") @Valid @RequestBody SigninRequestDTO signinRequestDTO
     ) {
