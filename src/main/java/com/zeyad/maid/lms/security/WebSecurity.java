@@ -26,7 +26,7 @@ public class WebSecurity {
             "/swagger-ui/**",
             "/webjars/**",
             "/swagger-ui.html",
-            "/api/v1/auth/**"
+            "/api/auth/**"
     };
 
     @Bean
