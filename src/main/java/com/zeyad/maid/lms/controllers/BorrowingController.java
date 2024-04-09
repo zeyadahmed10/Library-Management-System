@@ -31,10 +31,9 @@ public class BorrowingController {
     }
 
     @Operation(summary = "Return borrowed book", description = "Return borrowed book to library for specific patron")
-    @ApiResponse(responseCode = "201", description = "Book returned successfully")
+    @ApiResponse(responseCode = "200", description = "Book returned successfully")
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login")
-    @ApiResponse(responseCode = "409", description = "Conflict with existing resource can patron not borrowing book")
-    @ApiResponse(responseCode = "404", description = "Not found book or patron")
+    @ApiResponse(responseCode = "404", description = "Not found book or patron, or no active record for that book")
     @PutMapping("return/{bookId}/patron/{patronId}")
     public BorrowingRecordResponseDTO returnBook(@PathVariable Long bookId, @PathVariable Long patronId){
         return borrowingService.returnBook(bookId, patronId);

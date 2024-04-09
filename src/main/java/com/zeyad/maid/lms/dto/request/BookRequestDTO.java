@@ -23,10 +23,10 @@ public class BookRequestDTO {
     private String author;
 
     @NotNull(message = "Publication year cannot be null", groups = FirstOrder.class)
-    @PositiveOrZero(message = "Publication year cannot be negative value", groups = FirstOrder.class)
+    @PositiveOrZero(message = "Publication year cannot be negative value", groups = SecondOrder.class)
     private Integer publicationYear;
 
-    @NotBlank(message = "author must not be empty", groups = FirstOrder.class)
+    @NotBlank(message = "isbn must not be empty", groups = FirstOrder.class)
     private String isbn;
 
     @NotNull(message = "Amount cannot be null", groups = FirstOrder.class)
