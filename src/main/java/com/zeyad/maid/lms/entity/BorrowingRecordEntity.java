@@ -1,10 +1,7 @@
 package com.zeyad.maid.lms.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -14,18 +11,19 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BorrowingRecord {
+@Builder
+public class BorrowingRecordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
-    private Book book;
+    private BookEntity bookEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patron_id")
-    private Patron patron;
+    private PatronEntity patronEntity;
 
     @Temporal(TemporalType.DATE)
     private Date borrowDate;

@@ -1,10 +1,7 @@
 package com.zeyad.maid.lms.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "patrons", schema = "public")
@@ -12,12 +9,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Patron {
+@Builder
+public class PatronEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
     private String address;
+    @Column(unique = true)
     private String phoneNumber;
 }

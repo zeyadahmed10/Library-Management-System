@@ -10,13 +10,22 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+@Builder
+public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
+    @Column(unique = true)
     private String title;
     private String author;
-    private int publicationYear;
+    private Integer publicationYear;
     private String isbn;
+    private Integer amount;
+    private Integer rented;
+
+    @PrePersist
+    public void prePersist() {
+        if (amount == null) amount = 0;
+        if (rented == null) rented = 0;
+    }
 }
