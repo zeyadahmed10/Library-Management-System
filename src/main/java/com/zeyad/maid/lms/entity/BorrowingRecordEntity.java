@@ -37,11 +37,11 @@ public class BorrowingRecordEntity {
 
     @PrePersist
     public void prePersist() {
-        if (borrowDate == null) borrowDate = new Date();
-        if (returnDate == null) {
+        if (this.borrowDate == null) borrowDate = new Date();
+        if (this.returnDate == null) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, 10);
-            borrowDate = calendar.getTime();
+            this.returnDate = calendar.getTime();
         }
     }
 }

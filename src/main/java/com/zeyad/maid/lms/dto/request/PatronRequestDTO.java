@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@GroupSequence({BookRequestDTO.class, FirstOrder.class, SecondOrder.class})
+@GroupSequence({PatronRequestDTO.class, FirstOrder.class, SecondOrder.class})
 public class PatronRequestDTO {
 
     @NotBlank(message = "Name must not be empty", groups = FirstOrder.class)
