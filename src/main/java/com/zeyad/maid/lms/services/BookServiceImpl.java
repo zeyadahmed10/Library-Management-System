@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class BookServiceImpl implements BookService{
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Book found for id: " + id));
         return BookResponseMapper.map(bookEntity);
     }
-
+    @Transactional
     @Override
     public BookResponseDTO addBook(BookRequestDTO bookRequestDTO) {
         if(bookRepository.existsByTitle(bookRequestDTO.getTitle()))
@@ -45,7 +46,7 @@ public class BookServiceImpl implements BookService{
 
         return BookResponseMapper.map(bookRepository.save(bookEntity));
     }
-
+    @Transactional
     @Override
     public BookResponseDTO updateBook(Long id, BookRequestDTO bookRequestDTO) {
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Book found for id: " + id));
@@ -67,7 +68,7 @@ public class BookServiceImpl implements BookService{
         return BookResponseMapper.map(bookRepository.save(bookEntity));
 
     }
-
+    @Transactional
     @Override
     public void deleteBook(Long id) {
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Book found for id: " + id));
