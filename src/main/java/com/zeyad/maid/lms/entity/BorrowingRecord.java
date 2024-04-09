@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "borrowing_records")
+@Table(name = "borrowing_records", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
