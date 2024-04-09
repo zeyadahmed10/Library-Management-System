@@ -21,16 +21,16 @@ public class BookController {
 
     private final BookService bookService;
 
-    @Operation(summary = "Get Books", description = "Retrieves a list of books, based on name, page, size parameters or using the default values")
+    @Operation(summary = "Get Books", description = "Retrieves a list of books, based on title, page, size parameters or using the default values")
     @ApiResponse(responseCode = "200", description = "List of books retrieved successfully.")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
     @ApiResponse(responseCode = "404", description = "No files found with the specified parameters")
     @GetMapping
     public List<BookResponseDTO> getFiles(
-            @Parameter(description = "Name of the book") @RequestParam(name = "name", defaultValue = "") String name,
+            @Parameter(description = "Title of the book") @RequestParam(name = "title", defaultValue = "") String title,
             @Parameter(description = "Page number") @RequestParam(name = "page", defaultValue = "0") Integer page,
             @Parameter(description = "Page size") @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return bookService.findAllBooks(name, page, size);
+        return bookService.findAllBooks(title, page, size);
     }
 
     @Operation(summary = "Get book by its id", description = "Retrieves a file by its id")
@@ -38,7 +38,7 @@ public class BookController {
     @ApiResponse(responseCode = "404", description = "File not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
     @GetMapping("/{id}")
-    public BookResponseDTO getFileById(@PathVariable Integer id){
+    public BookResponseDTO getFileById(@PathVariable Long id){
         return bookService.findById(id);
     }
 
@@ -56,7 +56,7 @@ public class BookController {
     @ApiResponse(responseCode = "404", description = "Book not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login to update book")
     @PutMapping("/{id}")
-    public BookResponseDTO updateBook(@PathVariable Integer id, @RequestBody BookRequestDTO bookRequestDTO){
+    public BookResponseDTO updateBook(@PathVariable Long id, @RequestBody BookRequestDTO bookRequestDTO){
         return bookService.updateBook(id, bookRequestDTO);
     }
 
@@ -65,7 +65,7 @@ public class BookController {
     @ApiResponse(responseCode = "404", description = "Book not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login to delete book")
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Integer id){
+    public void deleteBook(@PathVariable Long id){
         bookService.deleteBook(id);
     }
 
