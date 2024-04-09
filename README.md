@@ -42,7 +42,7 @@ The Library Management System built using Spring Boot provides a robust API for 
 2. Run project after making sure that docker containers working properly
 
 ```bash
-  ./mvnw spring-boot:run -DskipTests
+  mvnw spring-boot:run -DskipTests
 ```
     
 ## How to Use and Documentation
@@ -69,7 +69,7 @@ To run tests, run the following command
 ```
 3. Run tests after making sure that docker containers working properly
 ```bash
-  ./mvnw test
+  mvnw test
 ```
 
 ## Technologies Used

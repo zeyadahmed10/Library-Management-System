@@ -21,17 +21,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {ResourceNotFoundException.class})
     protected ResponseEntity<?> handleConflict(ResourceNotFoundException ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(value = {ResourceExistedException.class})
     protected ResponseEntity<?> handleConflict(ResourceExistedException ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         BindingResult result = ex.getBindingResult();
         Map<String, String> errors = new    HashMap<>();
         for (FieldError error : result.getFieldErrors()) {
@@ -42,18 +42,18 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(value = {IllegalArgumentException.class})
     protected ResponseEntity<?> handleConflict(IllegalArgumentException ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(value = {HttpStatusCodeException.class})
     protected ResponseEntity<?> handleConflict(HttpStatusCodeException ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.valueOf(ex.getRawStatusCode()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

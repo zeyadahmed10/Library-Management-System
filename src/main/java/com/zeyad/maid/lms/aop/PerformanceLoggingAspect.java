@@ -19,7 +19,7 @@ public class PerformanceLoggingAspect {
     private final Map<String, AtomicLong> requestCounts = new ConcurrentHashMap<>();
     private final Map<String, AtomicLong> totalResponseTimes = new ConcurrentHashMap<>();
 
-    @Around("@annotation(com.zeyad.maid.lms.annotation.LogPerformance)")
+    @Around(value = "@annotation(com.zeyad.maid.lms.annotation.LogPerformance)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 
