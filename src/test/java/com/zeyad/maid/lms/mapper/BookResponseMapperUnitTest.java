@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookResponseMapperTest {
+class BookResponseMapperUnitTest {
 
     @Test
     void testMap_WithValidBookEntity_ReturnsCorrectBookResponseDTO() {
