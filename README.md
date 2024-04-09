@@ -21,12 +21,12 @@ The Library Management System built using Spring Boot provides a robust API for 
 
 - **Unit and Integration Testing:** Conducted thorough unit and integration tests using JUnit 5, Mockito, and Testcontainers for both Postgres and Keycloak, achieving an **90% code coverage** to ensure robustness and reliability.
 
-- **API Documentation:** Documented API endpoints using **Swagger to provide** clear and comprehensive documentation for API usage understanding.
+- **API Documentation:** Documented API endpoints using **Swagger** to provide clear and comprehensive documentation for API usage understanding.
 
 - **Global Exception Handling:** Handling exceptions gracefully.
 
 - **User Input Validation:** Validation over user input and provide user friendly message when validations fails.
-
+- **Transaction Management**
 ## Installation
 
 **Make sure That you have docker desktop installed first, Refer to [Docker Docs](https://docs.docker.com/desktop/install/windows-install/) for help**
