@@ -64,7 +64,7 @@ public class BorrowingServiceImpl implements BorrowingService{
            throw new ResourceNotFoundException("No active borrowing record found for patron id: " +patronId + ", and book id: "+bookId);
 
         BorrowingRecordEntity borrowingRecordEntity = borrowingRecordOptional.get();
-        bookEntity.setRented(bookEntity.getRented()+1);
+        bookEntity.setRented(bookEntity.getRented()-1);
         bookRepository.save(bookEntity);
 
         borrowingRecordEntity.setActualReturnDate(new Date());
