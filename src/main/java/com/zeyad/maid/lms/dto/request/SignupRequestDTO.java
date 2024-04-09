@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@GroupSequence({SigninRequestDTO.class, FirstOrder.class, SecondOrder.class})
+@GroupSequence({SignupRequestDTO.class, FirstOrder.class, SecondOrder.class})
 public class SignupRequestDTO {
 
     @NotBlank(message = "Username must not be empty", groups = FirstOrder.class)

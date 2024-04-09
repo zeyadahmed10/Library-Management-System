@@ -53,9 +53,6 @@ public class BookServiceImpl implements BookService{
         if(bookRepository.existsByTitleAndIdNot(bookRequestDTO.getTitle(), id))
             throw new ResourceExistedException("Book already exists for title: " + bookRequestDTO.getTitle());
 
-        if(bookRequestDTO.getAmount()==null)
-            bookRequestDTO.setAmount(bookEntity.getAmount());
-
         if(bookEntity.getRented()> bookRequestDTO.getAmount())
             throw new IllegalArgumentException("Update amount cannot be less than rented amount, rented amount : "+ bookEntity.getRented());
 
@@ -64,8 +61,8 @@ public class BookServiceImpl implements BookService{
         bookEntity.setPublicationYear((bookRequestDTO.getPublicationYear()==null)? bookEntity.getPublicationYear() : bookRequestDTO.getPublicationYear());
         bookEntity.setIsbn((bookRequestDTO.getIsbn()==null)? bookEntity.getIsbn() : bookRequestDTO.getIsbn());
         bookEntity.setAmount((bookRequestDTO.getAmount()==null)? bookEntity.getAmount() : bookRequestDTO.getAmount());
-
-        return BookResponseMapper.map(bookRepository.save(bookEntity));
+        bookRepository.save(bookEntity);
+        return BookResponseMapper.map(bookEntity);
 
     }
     @Transactional
