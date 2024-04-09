@@ -1,5 +1,6 @@
 package com.zeyad.maid.lms.controllers;
 
+import com.zeyad.maid.lms.annotation.CustomLogger;
 import com.zeyad.maid.lms.dto.request.SigninRequestDTO;
 import com.zeyad.maid.lms.dto.request.SignupRequestDTO;
 import com.zeyad.maid.lms.services.KeyCloakService;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final KeyCloakService keyCloakService;
-
+    @CustomLogger
     @Operation(
             summary = "Signup new user",
             description = "Create a new user account."
@@ -37,6 +38,7 @@ public class AuthController {
         return keyCloakService.createUser(signupRequestDTO);
     }
 
+    @CustomLogger
     @Operation(
             summary = "Sign in user",
             description = "Authenticate and obtain a JWT token for the user."

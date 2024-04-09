@@ -1,5 +1,7 @@
 package com.zeyad.maid.lms.controllers;
 
+import com.zeyad.maid.lms.annotation.CustomLogger;
+import com.zeyad.maid.lms.annotation.LogPerformance;
 import com.zeyad.maid.lms.dto.response.BorrowingRecordResponseDTO;
 import com.zeyad.maid.lms.services.BorrowingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +21,8 @@ public class BorrowingController {
 
     private final BorrowingService borrowingService;
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Borrow book", description = "Borrow Book from library to specific patron and patron should not exceed 5 books to borrow")
     @ApiResponse(responseCode = "201", description = "Patron borrowed book successfully")
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login")
@@ -30,6 +34,8 @@ public class BorrowingController {
         return borrowingService.borrowBook(bookId, patronId);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Return borrowed book", description = "Return borrowed book to library for specific patron")
     @ApiResponse(responseCode = "200", description = "Book returned successfully")
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login")

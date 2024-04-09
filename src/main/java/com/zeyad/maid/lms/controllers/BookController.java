@@ -1,5 +1,7 @@
 package com.zeyad.maid.lms.controllers;
 
+import com.zeyad.maid.lms.annotation.CustomLogger;
+import com.zeyad.maid.lms.annotation.LogPerformance;
 import com.zeyad.maid.lms.dto.request.BookRequestDTO;
 import com.zeyad.maid.lms.dto.response.BookResponseDTO;
 import com.zeyad.maid.lms.services.BookService;
@@ -24,6 +26,7 @@ public class BookController {
 
     private final BookService bookService;
 
+    @CustomLogger
     @Operation(summary = "Get Books", description = "Retrieves a list of books, based on title, page, size parameters or using the default values")
     @ApiResponse(responseCode = "200", description = "List of books retrieved successfully.")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
@@ -36,6 +39,7 @@ public class BookController {
         return bookService.findAllBooks(title, page, size);
     }
 
+    @CustomLogger
     @Operation(summary = "Get book by its id", description = "Retrieves a patron by its id")
     @ApiResponse(responseCode = "200", description = "Book response")
     @ApiResponse(responseCode = "404", description = "Patron not found")
@@ -45,6 +49,8 @@ public class BookController {
         return bookService.findById(id);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Add book", description = "Add new book to the library")
     @ApiResponse(responseCode = "201", description = "Book created and returns book response")
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login to add book")
@@ -56,6 +62,8 @@ public class BookController {
         return bookService.addBook(bookRequestDTO);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Updated book", description = "Update Book with new details")
     @ApiResponse(responseCode = "200", description = "Book response with new book updated content")
     @ApiResponse(responseCode = "404", description = "Book not found")
@@ -67,6 +75,8 @@ public class BookController {
         return bookService.updateBook(id, bookRequestDTO);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Delete book", description = "Delete book with its id")
     @ApiResponse(responseCode = "200", description = "Book deleted successfully")
     @ApiResponse(responseCode = "404", description = "Book not found")

@@ -1,5 +1,7 @@
 package com.zeyad.maid.lms.controllers;
 
+import com.zeyad.maid.lms.annotation.CustomLogger;
+import com.zeyad.maid.lms.annotation.LogPerformance;
 import com.zeyad.maid.lms.dto.request.BookRequestDTO;
 import com.zeyad.maid.lms.dto.request.PatronRequestDTO;
 import com.zeyad.maid.lms.dto.response.BookResponseDTO;
@@ -26,6 +28,7 @@ public class PatronController {
 
     private final PatronService patronService;
 
+    @CustomLogger
     @Operation(summary = "Get Patrons", description = "Retrieves a list of patrons, based on name, page, size parameters or using the default values")
     @ApiResponse(responseCode = "200", description = "List of patrons retrieved successfully.")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
@@ -38,6 +41,7 @@ public class PatronController {
         return patronService.findAllPatrons(name, page, size);
     }
 
+    @CustomLogger
     @Operation(summary = "Get patron by its id", description = "Retrieves a patron by its id")
     @ApiResponse(responseCode = "200", description = "Patron response")
     @ApiResponse(responseCode = "404", description = "Patron not found")
@@ -47,6 +51,8 @@ public class PatronController {
         return patronService.findById(id);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Add Patron", description = "Add new Patron to the library")
     @ApiResponse(responseCode = "201", description = "Patron created and returns book response")
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login to add Patron")
@@ -58,6 +64,8 @@ public class PatronController {
         return patronService.addPatron(patronRequestDTO);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Updated patron", description = "patron Book with new details")
     @ApiResponse(responseCode = "200", description = "Patron response with new book updated content")
     @ApiResponse(responseCode = "404", description = "Patron not found")
@@ -69,6 +77,8 @@ public class PatronController {
         return patronService.updatePatron(id, patronRequestDTO);
     }
 
+    @CustomLogger
+    @LogPerformance
     @Operation(summary = "Delete patron", description = "Delete patron with its id")
     @ApiResponse(responseCode = "200", description = "patron deleted successfully")
     @ApiResponse(responseCode = "404", description = "Book not found")
