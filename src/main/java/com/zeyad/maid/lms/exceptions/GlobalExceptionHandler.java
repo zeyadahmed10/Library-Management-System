@@ -1,5 +1,6 @@
 package com.zeyad.maid.lms.exceptions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {ResourceNotFoundException.class})
@@ -42,5 +44,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {HttpStatusCodeException.class})
     protected ResponseEntity<?> handleConflict(HttpStatusCodeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.valueOf(ex.getRawStatusCode()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleException(Exception ex) {
+        log.error(ex.getMessage());
+        return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
