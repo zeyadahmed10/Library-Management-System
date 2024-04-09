@@ -94,7 +94,7 @@ class BookServiceImplUnitTest {
         doReturn(Optional.empty()).when(bookRepository).findById(any(Long.class));
 
         //act & assert
-        assertThrows(RuntimeException.class, ()-> bookService.findById(id) );
+        assertThrows(ResourceNotFoundException.class, ()-> bookService.findById(id) );
 
 
     }

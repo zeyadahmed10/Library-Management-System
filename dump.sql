@@ -1,3 +1,3 @@
-\connect postgres;
+CREATE DATABASE library_management_system;
+\connect library_management_system;
 CREATE SCHEMA bitnami;
-SET search_path TO public, bitnami;

@@ -36,7 +36,7 @@ public class BorrowingServiceImpl implements BorrowingService{
 
         Integer borrowedBooksCnt = borrowingRecordRepository.countByPatronIdAndActualReturnDateIsNull(patronId);
 
-        if(borrowedBooksCnt> MAX_BORROW_LIMIT)
+        if(borrowedBooksCnt>= MAX_BORROW_LIMIT)
             throw new ResourceExistedException("Patron with id: " + patronId+" cannot borrow exceeded the limit of borrowing must returns books first");
 
         Optional<BorrowingRecordEntity> recordEntity = borrowingRecordRepository.findByBookIdAndPatronIdAndActualReturnDateIsNull(bookId, patronId);
