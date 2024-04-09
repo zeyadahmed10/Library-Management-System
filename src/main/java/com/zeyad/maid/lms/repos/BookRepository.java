@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
     Page<BookEntity> findByTitleContaining(String title, Pageable pageable);
     boolean existsByTitle(String title);
-    boolean existsByTitleAndId(String title, Long id);
+    boolean existsByTitleAndIdNot(String title, Long id);
 }

@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService{
     @Override
     public BookResponseDTO updateBook(Long id, BookRequestDTO bookRequestDTO) {
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Book found for id: " + id));
-        if(bookRepository.existsByTitleAndId(bookRequestDTO.getTitle(), id))
+        if(bookRepository.existsByTitleAndIdNot(bookRequestDTO.getTitle(), id))
             throw new ResourceExistedException("Book already exists for title: " + bookRequestDTO.getTitle());
 
         if(bookRequestDTO.getAmount()==null)
