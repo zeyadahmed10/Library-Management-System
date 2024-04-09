@@ -3,6 +3,7 @@ package com.zeyad.maid.lms.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -33,4 +34,14 @@ public class BorrowingRecordEntity {
 
     @Temporal(TemporalType.DATE)
     private Date actualReturnDate;
+
+    @PrePersist
+    public void prePersist() {
+        if (borrowDate == null) borrowDate = new Date();
+        if (returnDate == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, 10);
+            borrowDate = calendar.getTime();
+        }
+    }
 }

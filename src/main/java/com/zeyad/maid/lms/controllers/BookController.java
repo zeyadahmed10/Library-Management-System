@@ -49,7 +49,7 @@ public class BookController {
     @ApiResponse(responseCode = "201", description = "Book created and returns book response")
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login to add book")
     @ApiResponse(responseCode = "400", description = "Bad request can not add book to the library")
-    @ApiResponse(responseCode = "401", description = "Conflict with existing resource can not add book to the library")
+    @ApiResponse(responseCode = "409", description = "Conflict with existing resource can not add book to the library")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookResponseDTO addBook(@RequestBody @Valid BookRequestDTO bookRequestDTO){
@@ -61,7 +61,7 @@ public class BookController {
     @ApiResponse(responseCode = "404", description = "Book not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login to update book")
     @ApiResponse(responseCode = "400", description = "Bad request can not update book details")
-    @ApiResponse(responseCode = "401", description = "Conflict with existing resource can not update book details")
+    @ApiResponse(responseCode = "409", description = "Conflict with existing resource can not update book details")
     @PutMapping("/{id}")
     public BookResponseDTO updateBook(@PathVariable Long id, @RequestBody @Valid BookRequestDTO bookRequestDTO){
         return bookService.updateBook(id, bookRequestDTO);

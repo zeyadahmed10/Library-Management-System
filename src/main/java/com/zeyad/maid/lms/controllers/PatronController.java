@@ -63,7 +63,7 @@ public class PatronController {
     @ApiResponse(responseCode = "404", description = "Patron not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login to update patron")
     @ApiResponse(responseCode = "400", description = "Bad request can not update patron details")
-    @ApiResponse(responseCode = "401", description = "Conflict with existing resource can not update patron")
+    @ApiResponse(responseCode = "409", description = "Conflict with existing resource can not update patron")
     @PutMapping("/{id}")
     public PatronResponseDTO updatePatron(@PathVariable Long id, @RequestBody @Valid PatronRequestDTO patronRequestDTO){
         return patronService.updatePatron(id, patronRequestDTO);
