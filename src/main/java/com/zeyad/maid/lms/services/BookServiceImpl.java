@@ -52,6 +52,9 @@ public class BookServiceImpl implements BookService{
         if(bookRepository.existsByTitleAndId(bookRequestDTO.getTitle(), id))
             throw new ResourceExistedException("Book already exists for title: " + bookRequestDTO.getTitle());
 
+        if(bookRequestDTO.getAmount()==null)
+            bookRequestDTO.setAmount(bookEntity.getAmount());
+
         if(bookEntity.getRented()> bookRequestDTO.getAmount())
             throw new IllegalArgumentException("Update amount cannot be less than rented amount, rented amount : "+ bookEntity.getRented());
 

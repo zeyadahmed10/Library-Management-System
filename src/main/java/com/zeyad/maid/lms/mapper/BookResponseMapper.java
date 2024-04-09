@@ -13,7 +13,8 @@ public class BookResponseMapper {
         return BookResponseDTO.builder()
                 .id(bookEntity.getId()).title(bookEntity.getTitle())
                 .author(bookEntity.getAuthor()).isbn(bookEntity.getAuthor())
-                .publicationYear(bookEntity.getPublicationYear()).build();
+                .publicationYear(bookEntity.getPublicationYear())
+                .rented(bookEntity.getRented()).amount(bookEntity.getAmount()).build();
     }
     public static List<BookResponseDTO> map(List<BookEntity> bookEntityList){
         List<BookResponseDTO> responseDTOs = new ArrayList<>();

@@ -6,7 +6,9 @@ import com.zeyad.maid.lms.services.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/books")
 @Tag(name = "Books Controller", description = "APIs for books management")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class BookController {
 
     private final BookService bookService;
@@ -24,9 +27,9 @@ public class BookController {
     @Operation(summary = "Get Books", description = "Retrieves a list of books, based on title, page, size parameters or using the default values")
     @ApiResponse(responseCode = "200", description = "List of books retrieved successfully.")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
-    @ApiResponse(responseCode = "404", description = "No files found with the specified parameters")
+    @ApiResponse(responseCode = "404", description = "No books found with the specified parameters")
     @GetMapping
-    public List<BookResponseDTO> getFiles(
+    public List<BookResponseDTO> getBooks(
             @Parameter(description = "Title of the book") @RequestParam(name = "title", defaultValue = "") String title,
             @Parameter(description = "Page number") @RequestParam(name = "page", defaultValue = "0") Integer page,
             @Parameter(description = "Page size") @RequestParam(name = "size", defaultValue = "10") Integer size) {
@@ -37,8 +40,8 @@ public class BookController {
     @ApiResponse(responseCode = "200", description = "Book response")
     @ApiResponse(responseCode = "404", description = "File not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
-    @GetMapping("/{id}")
-    public BookResponseDTO getFileById(@PathVariable Long id){
+    @GetMapping(value = "/{id}")
+    public BookResponseDTO getBookById(@PathVariable Long id){
         return bookService.findById(id);
     }
 
@@ -47,7 +50,7 @@ public class BookController {
     @ApiResponse(responseCode = "401", description = "Unauthorized access you need to login to add book")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public BookResponseDTO addBook(@RequestBody BookRequestDTO bookRequestDTO){
+    public BookResponseDTO addBook(@RequestBody @Valid BookRequestDTO bookRequestDTO){
         return bookService.addBook(bookRequestDTO);
     }
 
