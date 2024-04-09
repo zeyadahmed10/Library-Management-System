@@ -58,15 +58,6 @@ class AuthControllerIntegrationTest {
             .withEnv("KC_DB_USERNAME","zeyad")
             .withEnv("KC_DB_URL_PORT","5432")
             .withEnv("KC_DB_URL_HOST", "postgres");
-//    @Container
-//    static GenericContainer<?> pgadminContainer = new GenericContainer<>(DockerImageName.parse("dpage/pgadmin4:latest"))
-//            .withNetwork(network)
-//            .withExposedPorts(80)
-//            .withNetworkAliases("pgadmin")
-//            .withEnv("PGADMIN_DEFAULT_EMAIL", "admin@postgres.com")
-//            .withEnv("PGADMIN_DEFAULT_PASSWORD", "password")
-//            .withEnv("PGADMIN_CONFIG_SERVER_MODE", "False");
-
 
     @BeforeAll
     static void init() throws Exception{
@@ -83,16 +74,6 @@ class AuthControllerIntegrationTest {
     }
     @DynamicPropertySource
     static void registerResourceServerIssuerProperty(DynamicPropertyRegistry registry) {
-//        //postgres configuration #very important note that when using @serviceConnection it connects to postgres database not the oe
-        //you provide as it's geenrated by default thus u need to configure keycloak to the same database secure_file_system -> postgres
-//        int postgresPort = postgreSQLContainer.getFirstMappedPort();
-//        String databaseUrl = "jdbc::postgresql://localhost:" + postgresPort+"/secure_file_system";
-//        registry.add("spring.jpa.hibernate.ddl-auto", ()-> "update");
-//        registry.add("spring.datasource.url", ()-> databaseUrl);
-//        registry.add("spring.datasource.username", ()-> "zeyad");
-//        registry.add("spring.datasource.password", ()-> "password");
-//        registry.add("spring.jpa.show-sql", ()-> "true");
-        //keycloak configuration
         int keyCloakPort = keycloakContainer.getFirstMappedPort();
         String authUrl = "http://localhost:"+String.valueOf(keyCloakPort);
         System.out.println(authUrl);
