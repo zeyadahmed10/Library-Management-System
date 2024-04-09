@@ -19,7 +19,7 @@ The Library Management System built using Spring Boot provides a robust API for 
 
 - **Security Measures:** Implemented security measures using Spring Security 6 and KeyCloak, ensuring secure authentication and authorization processes with **JWT and OAuth2**.
 
-- **Unit and Integration Testing:** Conducted thorough unit and integration tests using JUnit 5, Mockito, and Testcontainers for both Postgres and Keycloak, achieving an **90% code coverage** to ensure robustness and reliability.
+- **Unit and Integration Testing:** Conducted thorough unit and integration tests using JUnit 5, Mockito, and Testcontainers for both Postgres and Keycloak, achieving an **88% code coverage** to ensure robustness and reliability.
 
 - **API Documentation:** Documented API endpoints using **Swagger** to provide clear and comprehensive documentation for API usage understanding.
 
