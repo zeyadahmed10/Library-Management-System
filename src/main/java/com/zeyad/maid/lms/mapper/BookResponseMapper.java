@@ -12,7 +12,7 @@ public class BookResponseMapper {
             return null;
         return BookResponseDTO.builder()
                 .id(bookEntity.getId()).title(bookEntity.getTitle())
-                .author(bookEntity.getAuthor()).isbn(bookEntity.getAuthor())
+                .author(bookEntity.getAuthor()).isbn(bookEntity.getIsbn())
                 .publicationYear(bookEntity.getPublicationYear())
                 .rented(bookEntity.getRented()).amount(bookEntity.getAmount()).build();
     }
