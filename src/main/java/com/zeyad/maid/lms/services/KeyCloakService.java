@@ -31,7 +31,7 @@ public class KeyCloakService {
 
     private final Keycloak keycloak;
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Value("${keycloak.realm}")
     private String realm;
