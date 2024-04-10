@@ -32,14 +32,18 @@ The Library Management System built using Spring Boot provides a robust API for 
 **Make sure That you have docker desktop installed first, Refer to [Docker Docs](https://docs.docker.com/desktop/install/windows-install/) for help**
 
 1. Run Docker Desktop
-2. Run docker compose to setup KeyCloak and Postgres
+2. Clone project
+```bash
+  git clone git@github.com:zeyadahmed10/Library-Management-System.git
+```
+3. Run docker compose to setup KeyCloak and Postgres
 
 ```bash
   cd your-path/Library-Management-System
   docker-compose up -d
 ```
 
-2. Run project after making sure that docker containers working properly
+4. Run project after making sure that docker containers working properly
 
 ```bash
   mvnw spring-boot:run -DskipTests
@@ -52,7 +56,7 @@ The Library Management System built using Spring Boot provides a robust API for 
 - Default username: **client-admin** , password: **password**
 - If you are using swagger to interact with the api don't forget to copy the access token from the login endpoint and add it to the Authorize header from ![here](./swagger.png)
 - If you are using postman or any different method dont't forget to add authorization haeder with bearer + access_token
-- Swagger has details documentation on how to use every endpoint.
+- [Swagger](http://localhost:8080/swagger-ui.html) has detailed documentation on how to use every endpoint.
 
 
 ## Running Tests
