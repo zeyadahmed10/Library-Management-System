@@ -89,3 +89,5 @@ To run tests, run the following command
 - Swagger
 - Spring Profiles
 - RestAssured
+- Redis
+- Spring Data Redis
