@@ -1,5 +1,6 @@
 package com.zeyad.maid.lms.services;
 
+import com.zeyad.maid.lms.dto.response.BookResponseDTO;
 import com.zeyad.maid.lms.dto.response.BorrowingRecordResponseDTO;
 import com.zeyad.maid.lms.entity.BookEntity;
 import com.zeyad.maid.lms.entity.BorrowingRecordEntity;
@@ -11,6 +12,7 @@ import com.zeyad.maid.lms.repos.BookRepository;
 import com.zeyad.maid.lms.repos.BorrowingRecordRepository;
 import com.zeyad.maid.lms.repos.PatronRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BorrowingServiceImpl implements BorrowingService{
-
+    private final RedisTemplate<String, Object> redisTemplate;
     private final BookRepository bookRepository;
     private final PatronRepository patronRepository;
     private final BorrowingRecordRepository borrowingRecordRepository;
@@ -48,8 +50,9 @@ public class BorrowingServiceImpl implements BorrowingService{
 
         BorrowingRecordEntity borrowingRecordEntity = BorrowingRecordEntity.builder()
                 .bookEntity(bookEntity).patronEntity(patronEntity).actualReturnDate(null).build();
-
-        return BorrowingRecordResponseMapper.map(borrowingRecordRepository.save(borrowingRecordEntity));
+        BorrowingRecordResponseDTO borrowingRecordResponseDTO = BorrowingRecordResponseMapper.map(borrowingRecordRepository.save(borrowingRecordEntity));
+        updateBookCache(bookId, bookEntity.getRented());
+        return borrowingRecordResponseDTO;
 
     }
     @Transactional
@@ -66,8 +69,17 @@ public class BorrowingServiceImpl implements BorrowingService{
         BorrowingRecordEntity borrowingRecordEntity = borrowingRecordOptional.get();
         bookEntity.setRented(bookEntity.getRented()-1);
         bookRepository.save(bookEntity);
-
         borrowingRecordEntity.setActualReturnDate(new Date());
-        return BorrowingRecordResponseMapper.map(borrowingRecordRepository.save(borrowingRecordEntity));
+        BorrowingRecordResponseDTO borrowingRecordResponseDTO = BorrowingRecordResponseMapper.map(borrowingRecordRepository.save(borrowingRecordEntity));
+        updateBookCache(bookId, bookEntity.getRented());
+        return borrowingRecordResponseDTO;
+    }
+
+    public void updateBookCache(Long id, Integer rented){
+        BookResponseDTO bookResponseDTO = (BookResponseDTO) redisTemplate.opsForValue().get("books::"+id);
+        if(bookResponseDTO ==null)
+            return;
+        bookResponseDTO.setRented(rented);
+        redisTemplate.opsForValue().set("books::"+id, bookResponseDTO);
     }
 }

@@ -12,6 +12,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +48,7 @@ public class BookController {
     @ApiResponse(responseCode = "404", description = "Patron not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
     @GetMapping(value = "/{id}")
+    @Cacheable(value = "books", key = "#id")
     public BookResponseDTO getBookById(@PathVariable Long id){
         return bookService.findById(id);
     }
@@ -71,6 +75,7 @@ public class BookController {
     @ApiResponse(responseCode = "400", description = "Bad request can not update book details")
     @ApiResponse(responseCode = "409", description = "Conflict with existing resource can not update book details")
     @PutMapping("/{id}")
+    @CachePut(value ="books", key="#id")
     public BookResponseDTO updateBook(@PathVariable Long id, @RequestBody @Valid BookRequestDTO bookRequestDTO){
         return bookService.updateBook(id, bookRequestDTO);
     }
@@ -82,6 +87,7 @@ public class BookController {
     @ApiResponse(responseCode = "404", description = "Book not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login to delete book")
     @DeleteMapping("/{id}")
+    @CacheEvict(cacheNames = "books", key = "#id", beforeInvocation = false)
     public void deleteBook(@PathVariable Long id){
         bookService.deleteBook(id);
     }

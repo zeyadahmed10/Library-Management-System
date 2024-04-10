@@ -14,6 +14,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +50,7 @@ public class PatronController {
     @ApiResponse(responseCode = "404", description = "Patron not found")
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login")
     @GetMapping(value = "/{id}")
+    @Cacheable(value = "patrons",key = "#id")
     public PatronResponseDTO getPatronById(@PathVariable Long id){
         return patronService.findById(id);
     }
@@ -73,6 +77,7 @@ public class PatronController {
     @ApiResponse(responseCode = "400", description = "Bad request can not update patron details")
     @ApiResponse(responseCode = "409", description = "Conflict with existing resource can not update patron")
     @PutMapping("/{id}")
+    @CachePut(value ="patrons", key="#id")
     public PatronResponseDTO updatePatron(@PathVariable Long id, @RequestBody @Valid PatronRequestDTO patronRequestDTO){
         return patronService.updatePatron(id, patronRequestDTO);
     }
@@ -85,6 +90,7 @@ public class PatronController {
     @ApiResponse(responseCode = "401", description = "Unauthorized access need to login to delete patron")
     @ApiResponse(responseCode = "409", description = "Can't delete the patron, must returns all books first")
     @DeleteMapping("/{id}")
+    @CacheEvict(cacheNames = "patrons", key = "#id", beforeInvocation = false)
     public void deletePatron(@PathVariable Long id){
         patronService.deletePatron(id);
     }
