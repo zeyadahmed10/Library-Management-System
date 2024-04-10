@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  redis:
+    image: redis:7.2.4-alpine3.19
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=password
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
   postgres:
     container_name: postgres
     image: postgres:alpine3.18

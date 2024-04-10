@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
 import java.util.Date;
 import java.util.Optional;
@@ -21,12 +23,15 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 
 class BorrowingServiceImplTest {
 
     @Mock
     private BookRepository bookRepository;
+
+    @Mock
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Mock
     private PatronRepository patronRepository;
@@ -63,7 +68,9 @@ class BorrowingServiceImplTest {
         doReturn(Optional.empty()).when(borrowingRecordRepository).findByBookIdAndPatronIdAndActualReturnDateIsNull(anyLong(), anyLong());
         doReturn(bookEntity).when(bookRepository).save(any(BookEntity.class));
         doReturn(borrowingRecordEntity).when(borrowingRecordRepository).save(any(BorrowingRecordEntity.class));
-
+        ValueOperations<String, Object> stringObjectValueOperations = mock(ValueOperations.class);
+        when(redisTemplate.opsForValue()).thenReturn(stringObjectValueOperations);
+        when(stringObjectValueOperations.get(any())).thenReturn(null);
         // Act
         BorrowingRecordResponseDTO result = borrowingService.borrowBook(bookId, patronId);
 
@@ -162,7 +169,9 @@ class BorrowingServiceImplTest {
         doReturn(Optional.of(patronEntity)).when(patronRepository).findById(anyLong());
         doReturn(Optional.of(borrowingRecordEntity)).when(borrowingRecordRepository).findByBookIdAndPatronIdAndActualReturnDateIsNull(anyLong(), anyLong());
         doReturn(borrowingRecordEntity).when(borrowingRecordRepository).save(any(BorrowingRecordEntity.class));
-
+        ValueOperations<String, Object> stringObjectValueOperations = mock(ValueOperations.class);
+        when(redisTemplate.opsForValue()).thenReturn(stringObjectValueOperations);
+        when(stringObjectValueOperations.get(any())).thenReturn(null);
         // Act
         BorrowingRecordResponseDTO result = borrowingService.returnBook(bookId, patronId);
 

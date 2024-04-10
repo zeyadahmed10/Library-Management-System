@@ -15,10 +15,10 @@ The Library Management System built using Spring Boot provides a robust API for 
 
 
 ## Features
-- **AOP Aspects with Custom Annotations:** Engineered Aspect-Oriented Programming (AOP) aspects with custom annotations for log auditing and peformance metrics
+- **AOP Aspects with Custom Annotations _(Bonus)_:** Engineered Aspect-Oriented Programming (AOP) aspects with custom annotations for log auditing and peformance metrics
 
-- **Security Measures:** Implemented security measures using Spring Security 6 and KeyCloak, ensuring secure authentication and authorization processes with **JWT and OAuth2**.
-
+- **Security Measures _(Bonus)_:** Implemented security measures using Spring Security 6 and KeyCloak, ensuring secure authentication and authorization processes with **JWT and OAuth2**.
+- **Caching Mechanism _(Bonus)_** Utilized caching mechanism with **Spring Cache Manager, RedisTemplate and Redis** to enhance performance by caching frequently accessed data.
 - **Unit and Integration Testing:** Conducted thorough unit and integration tests using JUnit 5, Mockito, and Testcontainers for both Postgres and Keycloak, achieving an **88% code coverage** to ensure robustness and reliability.
 
 - **API Documentation:** Documented API endpoints using **Swagger** to provide clear and comprehensive documentation for API usage understanding.
